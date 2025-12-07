@@ -1,13 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export type FormValues = {
+type FormValues = {
   name: string;
   email: string;
   age: number;
   address: string;
 };
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body: FormValues = await req.json();
 
