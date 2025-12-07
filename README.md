@@ -1,4 +1,5 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<img width="732" height="431" alt="Koda drawio" src="https://github.com/user-attachments/assets/89fad302-7a7d-4206-bdf3-0e9725f322a6" />
 
 ## Getting Started
 
