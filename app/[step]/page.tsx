@@ -11,12 +11,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import ErrorLabel from "../components/ErrorLabel/ErrorLabel";
-import { UserResponse } from "../api/coversongs/[id]/route";
+import { IsrcLookupResponse } from "../sharedTypes";
 
 const stepOrder = ["step1", "step2", "step3", "step4"];
 
 type StepParams = {
-  step: StepKey;
+  step: StepKey & "step4";
 };
 
 export default function StepPage(props: {
@@ -24,15 +24,14 @@ export default function StepPage(props: {
 }): React.JSX.Element {
   const router = useRouter();
   const { step } = use(props.params);
-  const currentStep: StepKey = step;
-  const { values, setValues } = useFormStore();
+  const { values, isrcData, setValues, setIsrcData, reset } = useFormStore();
   const [loading, setLoading] = useState(false);
-
+  const currentStep: StepKey = step;
   const stepIndex = stepOrder.indexOf(currentStep);
   const isFirst = stepIndex === 0;
-  const isLast = stepIndex === stepOrder.length - 1;
+  const isLast = stepIndex === stepOrder.length - 2;
 
-  if (stepIndex === -1) return <div>Invalid step</div>;
+  if (stepIndex === -1) return <div>Ugyldig værdi</div>;
 
   const goToStep = (index: number) => {
     router.push(`/${stepOrder[index]}`);
@@ -41,16 +40,19 @@ export default function StepPage(props: {
   const handleSubmit = async (val: FormData) => {
     setValues(val);
 
-    console.log(stepIndex);
+    if (stepIndex < 2) setIsrcData(null);
+
+    if (stepIndex === 0) goToStep(stepIndex + 1);
 
     if (stepIndex === 1) {
       setLoading(true);
 
       try {
         const res = await fetch(`/api/coversongs/${val.name}`);
-        if (!res.ok) throw new Error("Failed to fetch user");
-        const data: UserResponse = await res.json();
-        console.log(data);
+        if (!res.ok) throw new Error("Kunne ikke hente ISRC data");
+        const data: IsrcLookupResponse = await res.json();
+        setIsrcData(data);
+        goToStep(stepIndex + 1);
       } catch (err) {
         console.error(err);
       } finally {
@@ -58,34 +60,22 @@ export default function StepPage(props: {
       }
     }
 
-    if (!isLast) goToStep(stepIndex + 1);
-    else {
+    if (stepIndex === 2) {
+      setLoading(true);
+
       try {
-        const res = await fetch("/api/nmp/submit", {
+        await fetch("/api/nmp/submit", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(val),
         });
 
-        const data = await res.json();
-        console.log("Response:", data);
-        alert(JSON.stringify(data));
+        goToStep(stepIndex + 1);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
-
-      //   try {
-      //     const res = await fetch("/api/nmp/submit");
-      //     if (!res.ok) throw new Error("Failed to fetch user");
-      //     const data: UserResponse = await res.json();
-      //     console.log(data);
-      //     //   alert("Form complete! Values: " + JSON.stringify(val, null, 2));
-      //     alert(data);
-      //   } catch (err) {
-      //     console.error(err);
-      //   } finally {
-      //     setLoading(false);
-      //   }
     }
   };
 
@@ -98,20 +88,20 @@ export default function StepPage(props: {
         onSubmit={(val) => handleSubmit(val)}
       >
         <Form>
-          {/* Render fields dynamically based on the step */}
           {currentStep === "step1" && (
             <>
-              <label>Name</label>
+              <h2>Dine kontaktoplysninger</h2>
+              <p className="mb-2">
+                Vi bruger oplysningerne til at kontakte dig vedrørende din
+                registrering, hvis det bliver nødvendigt.
+              </p>
+              <label>Navn</label>
               <Field name="name" as={Input} />
               <ErrorMessage
                 name="name"
                 render={(msg) => <ErrorLabel>{msg}</ErrorLabel>}
               />
-            </>
-          )}
-          {currentStep === "step2" && (
-            <>
-              <label>Email</label>
+              <label>E-mail</label>
               <Field name="email" as={Input} />
               <ErrorMessage
                 name="email"
@@ -119,46 +109,104 @@ export default function StepPage(props: {
               />
             </>
           )}
-          {currentStep === "step3" && (
+
+          {currentStep === "step2" && (
             <>
-              <label>Age</label>
-              <Field name="age" as={Input} />
+              <h2>Oplysninger om dit covernummer</h2>
+              <label>ISRC</label>
+              <Field name="isrcNumber" as={Input} />
               <ErrorMessage
-                name="age"
+                name="isrcNumber"
+                render={(msg) => <ErrorLabel>{msg}</ErrorLabel>}
+              />
+              <label>Dit artistnavn</label>
+              <Field name="artistName" as={Input} />
+              <ErrorMessage
+                name="artistName"
                 render={(msg) => <ErrorLabel>{msg}</ErrorLabel>}
               />
             </>
           )}
-          {currentStep === "step4" && (
+
+          {currentStep === "step3" && (
             <>
-              <label>Address</label>
-              <Field name="address" as={Input} />
+              {isrcData !== null && (
+                <div className="bg-blue-100 p-4 mb-4 rounded-2xl">
+                  <h3 className="mb-2">
+                    Du har valgt værket "{isrcData.title}"
+                  </h3>
+
+                  <p className="mb-2">
+                    <strong>Titel</strong>
+                    <br />
+                    {isrcData.title}
+                  </p>
+                  <p className="mb-2">
+                    <strong>Værknummer</strong>
+                    <br />
+                    {isrcData.trackNumber}
+                  </p>
+                  <p className="mb-2">
+                    <strong>Komponister / forfatter</strong>
+                    <br />
+                    {isrcData.composers.join(", ")}
+                  </p>
+                  <p className="mb-2">
+                    <strong>Arrangør</strong>
+                    <br />
+                    {isrcData.arranger}
+                  </p>
+                  <p className="mb-2">
+                    <strong>Tekstforfatter</strong>
+                    <br />
+                    {isrcData.author}
+                  </p>
+                </div>
+              )}
+              <label>Indsæt et link til originalværket</label>
+              <Field name="link" as={Input} />
               <ErrorMessage
-                name="address"
+                name="link"
                 render={(msg) => <ErrorLabel>{msg}</ErrorLabel>}
               />
+            </>
+          )}
+
+          {currentStep === "step4" && (
+            <>
+              <h3>Tak for din registrering</h3>
+              <Button
+                onClick={() => {
+                  reset();
+                  router.push("/");
+                }}
+              >
+                Tilbage til start
+              </Button>
             </>
           )}
           {/* Buttons */}
-          <div style={{ marginTop: 20 }}>
-            {!isFirst && (
+          {stepIndex < 3 && (
+            <div className="flex justify-between pt-8">
               <Button
                 type="button"
                 onClick={() => {
                   // setValues(formikValues);
                   goToStep(stepIndex - 1);
+                  setIsrcData(null);
                 }}
+                disabled={isFirst}
               >
-                Previous
+                Forrige
               </Button>
-            )}
 
-            {!isLast ? (
-              <Button type="submit">Next {loading && <Spinner />}</Button>
-            ) : (
-              <Button type="submit">Submit</Button>
-            )}
-          </div>
+              {!isLast ? (
+                <Button type="submit">Næste {loading && <Spinner />}</Button>
+              ) : (
+                <Button type="submit">Indsend {loading && <Spinner />}</Button>
+              )}
+            </div>
+          )}
         </Form>
       </Formik>
     </FormLayout>

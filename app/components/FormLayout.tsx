@@ -11,8 +11,8 @@ export default function FormLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ maxWidth: 500, margin: "auto" }}>
-      <h1>Step {step}</h1>
+    <div className="w-2xl lg:w-1/2 mx-auto p-8 bg-white rounded-md shadow-lg mt-10 border-2 border-gray-500">
+      <h1 className="mb-4">Koda Cover Registrering</h1>
       {children}
     </div>
   );

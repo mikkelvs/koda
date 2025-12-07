@@ -1,10 +1,6 @@
 // app/api/user/[id]/route.ts
+import { IsrcLookupResponse } from "@/app/sharedTypes";
 import { NextResponse } from "next/server";
-
-export type UserResponse = {
-  id: string;
-  name: string;
-};
 
 export async function GET(req: Request, context: { params: { id: string } }) {
   const { id } = context.params;
@@ -13,9 +9,13 @@ export async function GET(req: Request, context: { params: { id: string } }) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // Mock response
-  const user: UserResponse = {
+  const user: IsrcLookupResponse = {
     id,
-    name: `User ${id}`,
+    title: "Yesterday",
+    trackNumber: 12341234,
+    composers: ["Lorem", "Ipsum"],
+    arranger: "Dolor",
+    author: "Sit Amet",
   };
 
   return NextResponse.json(user, { status: 200 });
