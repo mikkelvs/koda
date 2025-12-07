@@ -1,4 +1,3 @@
-// app/api/user/[id]/route.ts
 import { IsrcLookupResponse } from "@/app/sharedTypes";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,10 +7,8 @@ export async function GET(
 ) {
   const { id } = await context.params;
 
-  // --- Add delay ---
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  // Mock response
   const user: IsrcLookupResponse = {
     id,
     title: "Yesterday",

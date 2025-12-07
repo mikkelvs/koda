@@ -11,9 +11,6 @@ export async function POST(req: NextRequest) {
   try {
     const body: FormValues = await req.json();
 
-    // Here you can handle the form values, e.g., save to DB or call another API
-    console.log("Received form values:", body);
-
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return NextResponse.json({

@@ -18,7 +18,6 @@ export default function ProgressBarIndicator({
             key={step}
             className="flex items-center w-full last:w-auto mt-8 mb-8"
           >
-            {/* Circle */}
             <div
               className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300
                 ${isCompleted ? "bg-green-500 border-green-500 text-white" : ""}
@@ -33,7 +32,6 @@ export default function ProgressBarIndicator({
               {isCompleted ? <Check className="w-5 h-5" /> : step}
             </div>
 
-            {/* Connecting line */}
             {idx < totalSteps - 1 && (
               <div
                 className={`flex-1 h-1 mx-2 transition-all duration-300
