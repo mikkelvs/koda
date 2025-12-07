@@ -49,7 +49,7 @@ export default function StepPage(props: {
       setLoading(true);
 
       try {
-        const res = await fetch(`/api/coversongs/${val.name}`);
+        const res = await fetch(`/api/isrc/${val.name}`);
         if (!res.ok) throw new Error("Kunne ikke hente ISRC data");
         const data: IsrcLookupResponse = await res.json();
         setIsrcData(data);
