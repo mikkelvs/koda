@@ -114,7 +114,7 @@ export default function StepPage(props: {
             <>
               <h2>Oplysninger om dit covernummer</h2>
               <label>ISRC</label>
-              <Field name="isrcNumber" as={Input} />
+              <Field name="isrcNumber" as={Input} maxLength="10" />
               <ErrorMessage
                 name="isrcNumber"
                 render={(msg) => <ErrorLabel>{msg}</ErrorLabel>}
@@ -180,6 +180,7 @@ export default function StepPage(props: {
                   reset();
                   router.push("/");
                 }}
+                className="mt-8"
               >
                 Tilbage til start
               </Button>
@@ -203,7 +204,9 @@ export default function StepPage(props: {
               {!isLast ? (
                 <Button type="submit">Næste {loading && <Spinner />}</Button>
               ) : (
-                <Button type="submit">Indsend {loading && <Spinner />}</Button>
+                <Button type="submit" className="text-green-500">
+                  Indsend {loading && <Spinner />}
+                </Button>
               )}
             </div>
           )}

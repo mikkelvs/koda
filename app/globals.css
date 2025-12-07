@@ -133,14 +133,15 @@
 
   h1 {
     @apply text-4xl;
+    @apply text-orange-600;
   }
 
   h2 {
-    @apply text-3xl;
+    @apply text-2xl;
   }
 
   h3 {
-    @apply text-2xl;
+    @apply text-xl;
   }
 
   h4 {
@@ -156,6 +157,6 @@
   }
 
   label {
-    @apply block mt-8 mb-1 font-medium;
+    @apply block mt-8 mb-1 font-bold;
   }
 }
