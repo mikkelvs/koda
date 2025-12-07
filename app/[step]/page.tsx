@@ -59,7 +59,34 @@ export default function StepPage(props: {
     }
 
     if (!isLast) goToStep(stepIndex + 1);
-    else alert("Form complete! Values: " + JSON.stringify(val, null, 2));
+    else {
+      try {
+        const res = await fetch("/api/nmp/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(val),
+        });
+
+        const data = await res.json();
+        console.log("Response:", data);
+        alert(JSON.stringify(data));
+      } catch (err) {
+        console.error(err);
+      }
+
+      //   try {
+      //     const res = await fetch("/api/nmp/submit");
+      //     if (!res.ok) throw new Error("Failed to fetch user");
+      //     const data: UserResponse = await res.json();
+      //     console.log(data);
+      //     //   alert("Form complete! Values: " + JSON.stringify(val, null, 2));
+      //     alert(data);
+      //   } catch (err) {
+      //     console.error(err);
+      //   } finally {
+      //     setLoading(false);
+      //   }
+    }
   };
 
   return (
