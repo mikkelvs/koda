@@ -116,7 +116,7 @@ export default function StepPage(props: {
             <>
               <h2>Oplysninger om dit covernummer</h2>
               <label>ISRC</label>
-              <Field name="isrcNumber" as={Input} maxLength="10" />
+              <Field name="isrcNumber" as={Input} maxLength="12" />
               <ErrorMessage
                 name="isrcNumber"
                 render={(msg) => <ErrorLabel>{msg}</ErrorLabel>}

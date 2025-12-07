@@ -12,7 +12,7 @@ export const stepSchemas = {
   step2: Yup.object({
     isrcNumber: Yup.string()
       .matches(/^[0-9]+$/, "Skriv venligst kun tal")
-      .length(10, "Et gyldigt ISRC nummer består af 10 cifre")
+      .length(12, "Et gyldigt ISRC nummer består af 12 cifre")
       .required("Udfyld venligst ISRC nummer"),
     artistName: Yup.string().required("Udfyld venligst dit artistnavn"),
   }),
