@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import ErrorLabel from "../components/ErrorLabel/ErrorLabel";
 import { IsrcLookupResponse } from "../sharedTypes";
+import ProgressBarIndicator from "../components/ProgressBarIndicator/ProgressBarIndicator";
 
 const stepOrder = ["step1", "step2", "step3", "step4"];
 
@@ -81,6 +82,7 @@ export default function StepPage(props: {
 
   return (
     <FormLayout step={stepIndex + 1}>
+      <ProgressBarIndicator totalSteps={3} currentStep={stepIndex + 1} />
       <Formik
         initialValues={values}
         validationSchema={stepSchemas[currentStep]}
@@ -175,6 +177,7 @@ export default function StepPage(props: {
           {currentStep === "step4" && (
             <>
               <h3>Tak for din registrering</h3>
+              <p>Data er sendt til NMP.</p>
               <Button
                 onClick={() => {
                   reset();
