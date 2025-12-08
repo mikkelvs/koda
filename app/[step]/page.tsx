@@ -1,4 +1,3 @@
-// app/form/[step]/page.tsx
 "use client";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -189,13 +188,12 @@ export default function StepPage(props: {
               </Button>
             </>
           )}
-          {/* Buttons */}
+
           {stepIndex < 3 && (
             <div className="flex justify-between pt-8">
               <Button
                 type="button"
                 onClick={() => {
-                  // setValues(formikValues);
                   goToStep(stepIndex - 1);
                   setIsrcData(null);
                 }}
