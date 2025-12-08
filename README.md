@@ -1,37 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Koda klient til registrering af covernumre
+
+## Forståelse og afgrænsing af opgaven
+
+Min opgaveløsning har taget udgangspunkt i beskrivelsen af den nuværende proces og ønsket om at automatisere dele heraf. Casebeskrivelsen indeholder et par, for mig, uklarheder, hvor jeg i en faktisk situation ville tale med forretningen og få dem afklaret. Min løsning er derfor baseret på nedenstående antagelser og begrænsninger.
+
+### Forretningsmæssige antagelser
+- Beskrivelsen af Flow 2 (Betaling til rettighedshavere) er kun med for kontekst, og indgår ikke derudover i oogaven. Jeg har ikke indsigt i NMPs processer, og inkluderer dem derfor ikke i diagram og prototype.
+- Det er ikke nærmere beskrevet hvad Kodas kontrol af den registrerede data indebærer. I opgavelæøsningen er det derfor antaget, at dette kan fuldautomatiseres uden et manuelt review.
+
+### Tekniske begrænsninger
+- Prototypen tager udgangspunkt i step 1-3 fra Flow 1 (Registrering af covernumre).
+- Koden er funktionel, men i en pre-PR tilstand, hvor optimeringer og syntaksoprydning udestår.
+- Ingen unit tests eller Storybook. Jeg kan redegøre for hensigtsmæssige testscenarier.
+
+## Diagram over løsningen
 <img width="732" height="431" alt="Koda drawio" src="https://github.com/user-attachments/assets/89fad302-7a7d-4206-bdf3-0e9725f322a6" />
 
-## Getting Started
-
-First, run the development server:
+## Lokal afvikling af løsningen 
+Hent koden og kør herefter i CWD:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tilgå [http://localhost:3000](http://localhost:3000) i browseren.
