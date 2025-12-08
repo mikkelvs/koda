@@ -1,6 +1,6 @@
 # Koda klient til registrering af covernumre
 
-## Forståelse og afgrænsing af opgaven
+## Forståelse og afgrænsning af opgaven
 
 Min opgaveløsning har taget udgangspunkt i beskrivelsen af den nuværende proces og ønsket om at automatisere dele heraf. Casebeskrivelsen indeholder et par, for mig, uklarheder, hvor jeg i en faktisk situation ville tale med forretningen og få dem afklaret. Min løsning er derfor baseret på nedenstående antagelser og begrænsninger.
 
