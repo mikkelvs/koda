@@ -6,7 +6,7 @@ Min opgaveløsning har taget udgangspunkt i beskrivelsen af den nuværende proce
 
 ### Forretningsmæssige antagelser
 - Beskrivelsen af Flow 2 (Betaling til rettighedshavere) er kun med for kontekst, og indgår ikke derudover i oogaven. Jeg har ikke indsigt i NMPs processer, og inkluderer dem derfor ikke i diagram og prototype.
-- Det er ikke nærmere beskrevet hvad Kodas kontrol af den registrerede data indebærer. I opgavelæøsningen er det derfor antaget, at dette kan fuldautomatiseres uden et manuelt review.
+- Det er ikke nærmere beskrevet hvad Kodas kontrol af den registrerede data indebærer. I opgaveløsningen er det derfor antaget, at dette kan fuldautomatiseres uden et manuelt review.
 
 ### Tekniske begrænsninger
 - Prototypen tager udgangspunkt i step 1-3 fra Flow 1 (Registrering af covernumre).
