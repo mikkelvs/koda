@@ -8,10 +8,12 @@ Min opgaveløsning har taget udgangspunkt i beskrivelsen af den nuværende proce
 
 - Beskrivelsen af Flow 2 (Betaling til rettighedshavere) er kun med for kontekst, og indgår ikke derudover i oogaven. Jeg har ikke indsigt i NMPs processer, og inkluderer dem derfor ikke i diagram og prototype.
 - Det er ikke nærmere beskrevet hvad Kodas kontrol af den registrerede data indebærer. I opgaveløsningen er det derfor antaget, at dette kan fuldautomatiseres uden et manuelt review.
+- Jeg har ligeledes antaget at der findes, eller at det er muligt at udvikle, et API til at finde track info ud fra ISRC-nummer, og dette er mocket i løsningen.
 
 ### Tekniske begrænsninger
 
 - Prototypen tager udgangspunkt i step 1-3 fra Flow 1 (Registrering af covernumre).
+- Teknologivalg: Formik (validering), Zustand (state management).
 - Koden er funktionel, men i en pre-PR tilstand, hvor optimeringer og syntaksoprydning udestår.
 - Ingen unit tests eller Storybook. Jeg kan redegøre for hensigtsmæssige testscenarier.
 
